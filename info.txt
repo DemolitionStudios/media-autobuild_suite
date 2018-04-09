@@ -1,0 +1,115 @@
+----------------------------------
+скрипт для настройки окружения и сбоки media-autobuild_suite.bat
+
+--------
+24 
+call config.bat
+вызывается скрипт инициализации параметров сборки
+
+-------
+начиная с 
+147 
+:selectSystem 
+написано за что отвечают параметры из config.bat
+
+-------
+для постройки mpv необходимо построить ffmpeg при этом shared собирается с ошибкой, сходу только static
+для постройки libmpv должен быть параметр buildffmpegChoice=4
+
+-------
+параметры перепаковываются, и вызывается скрипт build\media-suite_compile.sh c полученными параметрами
+1394
+/build/media-suite_compile.sh --cpuCount=%cpuCount% --build32=%build32% --build64=%build64% --deleteSource=%deleteSource% ^
+--mp4box=%mp4box% --vpx=%vpx2% --x264=%x2643% --x265=%x2652% --other265=%other265% --flac=%flac% --fdkaac=%fdkaac% ^
+--mediainfo=%mediainfo% --sox=%sox% --ffmpeg=%ffmpeg% --ffmpegUpdate=%ffmpegUpdate% --ffmpegChoice=%ffmpegChoice% ^
+--mplayer=%mplayer% --mpv=%mpv% --license=%license2%  --stripping=%stripFile% --packing=%packFile% ^
+--rtmpdump=%rtmpdump% --logging=%logging% --bmx=%bmx% --standalone=%standalone% ^
+--faac=%faac% --ffmbc=%ffmbc% --curl=%curl% --cyanrip=%cyanrip%'
+
+-------
+тут можно указать флаги mpv
+95 
+:: overriden defaults
+
+set mpv_options_basic="--lua=luajit"
+
+
+
+:: all supported options
+
+set mpv_options_full=dvdread dvdnav cdda egl-angle vapoursynth html-build ^
+pdf-build libmpv-shared 
+
+флаги взяты из файла build\mpv_options.txt
+
+# Built-in options, use --disable- to disable them
+#--enable-cplayer
+#--enable-manpage-build
+#--enable-lua
+#--enable-javascript
+#--enable-libass
+#--enable-encoding
+#--enable-libbluray
+#--enable-uchardet
+#--enable-rubberband
+#--enable-lcms2
+#--enable-libarchive
+#--enable-libavdevice
+#--enable-shaderc
+#--enable-crossc
+#--enable-d3d11
+#--enable-jpeg
+
+# Common options or overriden defaults
+--disable-debug-build
+--lua=luajit
+
+# Full
+--enable-dvdread
+--enable-dvdnav
+--enable-cdda
+--enable-egl-angle
+--enable-vapoursynth
+--enable-html-build
+--enable-pdf-build
+--enable-libmpv-shared
+
+----------------------------------
+скрипт сборки build\media-suite_compile.sh
+
+-------
+вызывается скрипт build\media-suite_helper.sh - в нем определены вспомогатьельные функции для сборки
+61 
+source "$LOCALBUILDDIR"/media-suite_helper.sh
+
+-------
+загрузка mpv и последующая обработка флагов
+1708
+if do_vcs "https://github.com/mpv-player/mpv.git"; then
+
+----------------------------------
+конечные файлы помещаются в local64
+в частности в local64\bin-video находится libopenh264.dll
+
+
+----------------------------------
+генерация mpv.lib из .def
+
+-------
+в файл build\mpv-git\libmpv\mpv.def дописать вначале EXPORTS
+
+-------
+VS Tool (dumpbin, lib)
+находятся где-нибудь C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin
+
+-------
+если добавлялись/убирались методы в dll но изменения не были отображены в build\mpv-git\libmpv\mpv.def
+нужно запустить 
+> dumpbin /exports C:\yourpath\yourlib.dll 
+и посмотреть какие методы есть в dll и дописать/убрать их из mpv.def
+
+-------
+для генерации .lib запустить
+> lib /MACHINE:X64 /def:C:\mypath\mylib.def /OUT:C:\mypath\mylib.lib
+или
+> lib /MACHINE:X86 /def:C:\mypath\mylib.def /OUT:C:\mypath\mylib.lib

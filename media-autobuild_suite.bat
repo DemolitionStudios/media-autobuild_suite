@@ -1,4 +1,4 @@
-::-----------------------------------------------------------------------------
+f::-----------------------------------------------------------------------------
 :: LICENSE --------------------------------------------------------------------
 ::-----------------------------------------------------------------------------
 ::  This Windows Batchscript is for setup a compiler environment for building
@@ -21,6 +21,7 @@
 ::-----------------------------------------------------------------------------
 
 @echo off
+call config.bat
 color 80
 title media-autobuild_suite
 
@@ -84,7 +85,7 @@ set ffmpeg_options_full=chromaprint cuda-sdk decklink frei0r libbs2b libcaca ^
 libcdio libfdk-aac libflite libfribidi libgme libgsm libilbc libkvazaar ^
 libmodplug libnpp libopenh264 libopenmpt librtmp librubberband libssh ^
 libtesseract libxavs libxvid libzmq libzvbi opencl opengl libvmaf libcodec2 ^
-libsrt libaom ladspa
+libsrt libaom
 
 :: built-ins
 set mpv_options_builtin=#cplayer #manpage-build #lua #javascript #libass ^
@@ -92,15 +93,15 @@ set mpv_options_builtin=#cplayer #manpage-build #lua #javascript #libass ^
 #shaderc #crossc #d3d11 #jpeg
 
 :: overriden defaults
-set mpv_options_basic=--disable-debug-build "--lua=luajit"
+set mpv_options_basic="--lua=luajit"
 
 :: all supported options
 set mpv_options_full=dvdread dvdnav cdda egl-angle vapoursynth html-build ^
-pdf-build libmpv-shared
+pdf-build libmpv-shared 
 
 set iniOptions=msys2Arch arch license2 vpx2 x2643 x2652 other265 flac fdkaac mediainfo soxB ffmpegB2 ffmpegUpdate ^
 ffmpegChoice mp4box rtmpdump mplayer2 mpv cores deleteSource strip pack logging bmx standalone updateSuite ^
-aom faac ffmbc curl cyanrip redshift
+faac ffmbc curl cyanrip redshift
 
 set previousOptions=0
 set msys2ArchINI=0
@@ -153,10 +154,9 @@ if %archINI%==0 (
     echo. 1 = both [32 bit and 64 bit]
     echo. 2 = 32 bit build system
     echo. 3 = 64 bit build system
-    echo.
+    echo. buildEnv = %buildEnv%
     echo -------------------------------------------------------------------------------
-    echo -------------------------------------------------------------------------------
-    set /P buildEnv="Build System: "
+    echo ------------------------------------------------------------------------------- 
     ) else set buildEnv=%archINI%
 if %deleteINI%==1 set "writeArch=yes"
 
@@ -204,10 +204,9 @@ if %license2INI%==0 (
     echo.
     echo. OpenSSL and FDK-AAC have licenses incompatible with GPL but compatible
     echo. with LGPL, so they won't be disabled automatically if you choose LGPL.
-    echo.
+    echo. ffmpegLicense=%ffmpegLicense%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P ffmpegLicense="FFmpeg license: "
     ) else set ffmpegLicense=%license2INI%
 if %deleteINI%==1 set "writeLicense=yes"
 
@@ -229,10 +228,9 @@ if %standaloneINI%==0 (
      echo. eg. Compile opusenc.exe if --enable-libopus
      echo. 1 = Yes
      echo. 2 = No
-     echo.
+     echo. buildstandalone=%buildstandalone%
      echo -------------------------------------------------------------------------------
      echo -------------------------------------------------------------------------------
-     set /P buildstandalone="Build standalone binaries: "
      ) else set buildstandalone=%standaloneINI%
 if %deleteINI%==1 set "writestandalone=yes"
 
@@ -252,10 +250,9 @@ if %vpx2INI%==0 (
     echo. 2 = No
     echo.
     echo. Binaries being built depends on "standalone=y"
-    echo.
+    echo. buildvpx=%buildvpx%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildvpx="Build vpx: "
     ) else set buildvpx=%vpx2INI%
 if %deleteINI%==1 set "writevpx=yes"
 
@@ -263,29 +260,6 @@ if %buildvpx%==1 set "vpx2=y"
 if %buildvpx%==2 set "vpx2=n"
 if %buildvpx% GTR 2 GOTO vpx
 if %writevpx%==yes echo.vpx2=^%buildvpx%>>%ini%
-
-:aom
-set "writeaom=no"
-if %aomINI%==0 (
-    echo -------------------------------------------------------------------------------
-    echo -------------------------------------------------------------------------------
-    echo.
-    echo. Build aom [Alliance for Open Media codec]?
-    echo. 1 = Yes
-    echo. 2 = No
-    echo.
-    echo. Binaries being built depends on "standalone=y"
-    echo.
-    echo -------------------------------------------------------------------------------
-    echo -------------------------------------------------------------------------------
-    set /P buildaom="Build aom: "
-    ) else set buildaom=%aomINI%
-if %deleteINI%==1 set "writeaom=yes"
-
-if %buildaom%==1 set "aom=y"
-if %buildaom%==2 set "aom=n"
-if %buildaom% GTR 2 GOTO aom
-if %writeaom%==yes echo.aom=^%buildaom%>>%ini%
 
 :x264
 set "writex264=no"
@@ -303,10 +277,9 @@ if %x2643INI%==0 (
     echo. 7 = Lib/binary with only 8-bit
     echo.
     echo. Binaries being built depends on "standalone=y" and are always static.
-    echo.
+    echo. buildx264=%buildx264%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildx264="Build x264: "
     ) else set buildx264=%x2643INI%
 if %deleteINI%==1 set "writex264=yes"
 
@@ -336,10 +309,9 @@ if %x2652INI%==0 (
     echo. 7 = Lib/binary with Main12 only
     echo.
     echo. Binaries being built depends on "standalone=y"
-    echo.
+    echo. buildx265=%buildx265%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildx265="Build x265: "
     ) else set buildx265=%x2652INI%
 if %deleteINI%==1 set "writex265=yes"
 
@@ -362,10 +334,9 @@ if %other265INI%==0 (
     echo. Build standalone Kvazaar?
     echo. 1 = Yes
     echo. 2 = No
-    echo.
+    echo. buildother265=%buildother265%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildother265="Build kvazaar: "
     ) else set buildother265=%other265INI%
 if %deleteINI%==1 set "writeother265=yes"
 
@@ -383,10 +354,9 @@ if %flacINI%==0 (
     echo. Build FLAC? [Free Lossless Audio Codec]
     echo. 1 = Yes
     echo. 2 = No
-    echo.
+    echo. buildflac=%buildflac%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildflac="Build flac: "
     ) else set buildflac=%flacINI%
 if %deleteINI%==1 set "writeflac=yes"
 
@@ -409,10 +379,9 @@ if %fdkaacINI%==0 (
     echo. better in quality from 96kbps and above. It still doesn't support AAC-HE/HEv2
     echo. so if you need that or want better quality at lower bitrates than 96kbps,
     echo. use FDK-AAC.
-    echo.
+    echo. buildfdkaac=%buildfdkaac%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildfdkaac="Build fdkaac: "
     ) else set buildfdkaac=%fdkaacINI%
 if %deleteINI%==1 set "writefdkaac=yes"
 
@@ -430,10 +399,9 @@ if %faacINI%==0 (
     echo. Build FAAC library and binary? [old, low-quality and nonfree AAC-LC codec]
     echo. 1 = Yes
     echo. 2 = No
-    echo.
+    echo. buildfaac=%buildfaac%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildfaac="Build faac: "
     ) else set buildfaac=%faacINI%
 if %deleteINI%==1 set "writefaac=yes"
 
@@ -451,10 +419,9 @@ if %mediainfoINI%==0 (
     echo. Build mediainfo binaries [Multimedia file information tool]?
     echo. 1 = Yes
     echo. 2 = No
-    echo.
+    echo. buildmediainfo=%buildmediainfo%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildmediainfo="Build mediainfo: "
     ) else set buildmediainfo=%mediainfoINI%
 if %deleteINI%==1 set "writemediainfo=yes"
 
@@ -472,10 +439,9 @@ if %soxBINI%==0 (
     echo. Build sox binaries [Sound processing tool]?
     echo. 1 = Yes
     echo. 2 = No
-    echo.
+    echo. buildsox=%buildsox%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildsox="Build sox: "
     ) else set buildsox=%soxBINI%
 if %deleteINI%==1 set "writesox=yes"
 
@@ -500,10 +466,9 @@ if %ffmpegB2INI%==0 (
     echo. Note: Option 5 differs from 3 in that libass, freetype and fribidi are
     echo. compiled shared so they take less space. This one isn't tested a lot and
     echo. will fail with fontconfig enabled.
-    echo.
+    echo. buildffmpeg=%buildffmpeg%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildffmpeg="Build FFmpeg: "
     ) else set buildffmpeg=%ffmpegB2INI%
 if %deleteINI%==1 set "writeFF=yes"
 
@@ -528,10 +493,9 @@ if %ffmpegUpdateINI%==0 (
     echo.
     echo. FFmpeg is updated a lot so you only need to select this if you
     echo. absolutely need updated external libraries in FFmpeg.
-    echo.
+    echo. buildffmpegUp=%buildffmpegUp%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildffmpegUp="Build ffmpeg if lib is new: "
     ) else set buildffmpegUp=%ffmpegUpdateINI%
 if %deleteINI%==1 set "writeFFU=yes"
 
@@ -559,10 +523,9 @@ if %ffmpegChoiceINI%==0 (
     echo. If you select yes, we will create files with the default options
     echo. we use with FFmpeg and mpv. You can remove any that you don't need or prefix
     echo. them with #
-    echo.
+    echo. buildffmpegChoice=%buildffmpegChoice%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildffmpegChoice="Choose ffmpeg and mpv optional libs: "
     ) else set buildffmpegChoice=%ffmpegChoiceINI%
 if %deleteINI%==1 set "writeFFC=yes"
 
@@ -629,10 +592,9 @@ if %mp4boxINI%==0 (
     echo. Build static mp4box [mp4 muxer/toolbox] binary?
     echo. 1 = Yes
     echo. 2 = No
-    echo.
+    echo. buildMp4box=%buildMp4box%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildMp4box="Build mp4box: "
     ) else set buildMp4box=%mp4boxINI%
 if %deleteINI%==1 set "writeMP4Box=yes"
 
@@ -650,10 +612,9 @@ if %rtmpdumpINI%==0 (
     echo. Build static rtmpdump binaries [rtmp tools]?
     echo. 1 = Yes
     echo. 2 = No
-    echo.
+    echo. buildrtmpdump=%buildrtmpdump%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildrtmpdump="Build rtmpdump: "
     ) else set buildrtmpdump=%rtmpdumpINI%
 if %deleteINI%==1 set "writertmpdump=yes"
 
@@ -677,10 +638,9 @@ if %mplayer2INI%==0 (
     echo. Don't bother opening issues about this if it breaks, I don't fucking care
     echo. about ancient unmaintained shit code. One more issue open about this that
     echo. isn't the suite's fault and mplayer goes fucking out.
-    echo.
+    echo. buildmplayer=%buildmplayer%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildmplayer="Build mplayer: "
     ) else set buildmplayer=%mplayer2INI%
 if %deleteINI%==1 set "writeMPlayer=yes"
 
@@ -705,15 +665,16 @@ if %mpvINI%==0 (
     echo. Warning: the third option isn't completely static. There's no way to include
     echo. a library dependant on Python statically. All users of the compiled binary
     echo. will need VapourSynth installed using the official package to even open mpv!
+    echo. buildmpv=%buildmpv%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildmpv="Build mpv: "
     ) else set buildmpv=%mpvINI%
 if %deleteINI%==1 set "writeMPV=yes"
 
 if %buildmpv%==1 set "mpv=y"
 if %buildmpv%==2 set "mpv=n"
 if %buildmpv%==3 set "mpv=v"
+set "mpv=y"
 if %buildmpv% GTR 3 GOTO mpv
 if %writeMPV%==yes echo.mpv=^%buildmpv%>>%ini%
 
@@ -726,10 +687,9 @@ if %bmxINI%==0 (
     echo. Build static bmx tools?
     echo. 1 = Yes
     echo. 2 = No
-    echo.
+    echo. buildbmx=%buildbmx%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildbmx="Build bmx: "
     ) else set buildbmx=%bmxINI%
 if %deleteINI%==1 set "writeBmx=yes"
 
@@ -754,10 +714,9 @@ if %curlINI%==0 (
     echo.
     echo. A curl-ca-bundle.crt will be created to be used as trusted certificate store
     echo. for all backends except SChannel.
-    echo.
+    echo. buildcurl=%buildcurl%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildcurl="Build curl: "
     ) else set buildcurl=%curlINI%
 if %deleteINI%==1 set "writeCurl=yes"
 
@@ -786,10 +745,9 @@ if %ffmbcINI%==0 (
     echo. to build, work, might burn your computer, kill your children, like mplayer.
     echo. Only enable it if you absolutely need it. If it breaks, complain first to
     echo. the author in #ffmbc in Freenode IRC.
-    echo.
+    echo. buildffmbc=%buildffmbc%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildffmbc="Build ffmbc: "
     ) else set buildffmbc=%ffmbcINI%
 if %deleteINI%==1 set "writeFFmbc=yes"
 
@@ -808,10 +766,9 @@ if %cyanripINI%==0 (
     echo. 1 = Yes
     echo. 2 = No
     echo. 3 = Yes with FFmpeg with only needed components
-    echo.
+    echo. buildcyanrip=%buildcyanrip%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildcyanrip="Build cyanrip: "
     ) else set buildcyanrip=%cyanripINI%
 if %deleteINI%==1 set "writecyanrip=yes"
 
@@ -830,10 +787,9 @@ if %redshiftINI%==0 (
     echo. Build redshift ^(f.lux FOSS clone^)?
     echo. 1 = Yes
     echo. 2 = No
-    echo.
+    echo. buildredshift=%buildredshift%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildredshift="Build redshift: "
     ) else set buildredshift=%redshiftINI%
 if %deleteINI%==1 set "writeredshift=yes"
 
@@ -853,10 +809,9 @@ if %coresINI%==0 (
     echo. [it is non-recommended to use all cores/threads!]
     echo.
     echo. Recommended: %coreHalf%
-    echo.
+    echo. cpuCores=%cpuCores%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P cpuCores="Core/Thread Count: "
     ) else set cpuCores=%coresINI%
     for /l %%a in (1,1,%cpuCores%) do (
         set cpuCount=%%a
@@ -877,10 +832,9 @@ if %deleteSourceINI%==0 (
     echo. 2 = No
     echo.
     echo. This will save a bit of space for libraries not compiled from git/hg/svn.
-    echo.
+    echo. deleteS=%deleteS%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P deleteS="Delete source: "
     ) else set deleteS=%deleteSourceINI%
 if %deleteINI%==1 set "writeDel=yes"
 
@@ -900,10 +854,9 @@ if %stripINI%==0 (
     echo. 2 = No
     echo.
     echo. Makes binaries smaller at only a small time cost after compiling.
-    echo.
+    echo. stripF=%stripF%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P stripF="Strip files: "
     ) else set stripF=%stripINI%
 if %deleteINI%==1 set "writeStrip=yes"
 
@@ -927,10 +880,9 @@ if %packINI%==0 (
     echo. Makes binaries smaller at a big time cost after compiling and on runtime.
     echo.
     echo. If distributing the files, consider packing them with 7-zip instead.
-    echo.
+    echo. packF=%packF%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P packF="Pack files: "
     ) else set packF=%packINI%
 if %deleteINI%==1 set "writePack=yes"
 
@@ -951,10 +903,9 @@ if %loggingINI%==0 (
     echo.
     echo Note: Setting this to yes will also hide output from these commands.
     echo On successful compilation, these logs are deleted since they aren't needed.
-    echo.
+    echo. loggingF=%loggingF%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P loggingF="Write logs: "
     ) else set loggingF=%loggingINI%
 if %deleteINI%==1 set "writeLogging=yes"
 
@@ -975,10 +926,9 @@ if %updateSuiteINI%==0 (
     echo.
     echo If you have made changes to the scripts, they will be reset but saved to a
     echo .diff text file inside %build%
-    echo.
+    echo. updateSuiteF=%updateSuiteF%
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P updateSuiteF="Create update script: "
     ) else set updateSuiteF=%updateSuiteINI%
 if %deleteINI%==1 set "writeUpdateSuite=yes"
 
@@ -1445,7 +1395,7 @@ MSYS2_PATH_TYPE=inherit MSYSTEM=%MSYSTEM% /usr/bin/bash --login ^
 --mp4box=%mp4box% --vpx=%vpx2% --x264=%x2643% --x265=%x2652% --other265=%other265% --flac=%flac% --fdkaac=%fdkaac% ^
 --mediainfo=%mediainfo% --sox=%sox% --ffmpeg=%ffmpeg% --ffmpegUpdate=%ffmpegUpdate% --ffmpegChoice=%ffmpegChoice% ^
 --mplayer=%mplayer% --mpv=%mpv% --license=%license2%  --stripping=%stripFile% --packing=%packFile% ^
---rtmpdump=%rtmpdump% --logging=%logging% --bmx=%bmx% --standalone=%standalone% --aom=%aom% ^
+--rtmpdump=%rtmpdump% --logging=%logging% --bmx=%bmx% --standalone=%standalone% ^
 --faac=%faac% --ffmbc=%ffmbc% --curl=%curl% --cyanrip=%cyanrip%'
 
 endlocal

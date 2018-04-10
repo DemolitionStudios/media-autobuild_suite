@@ -1,23 +1,23 @@
 ----------------------------------
-ñêðèïò äëÿ íàñòðîéêè îêðóæåíèÿ è ñáîêè media-autobuild_suite.bat
+ÑÐºÑ€Ð¸Ð¿Ñ‚ Ð´Ð»Ñ Ð½Ð°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸ Ð¾ÐºÑ€ÑƒÐ¶ÐµÐ½Ð¸Ñ Ð¸ ÑÐ±Ð¾ÐºÐ¸ media-autobuild_suite.bat
 
 --------
 24 
 call config.bat
-âûçûâàåòñÿ ñêðèïò èíèöèàëèçàöèè ïàðàìåòðîâ ñáîðêè
+Ð²Ñ‹Ð·Ñ‹Ð²Ð°ÐµÑ‚ÑÑ ÑÐºÑ€Ð¸Ð¿Ñ‚ Ð¸Ð½Ð¸Ñ†Ð¸Ð°Ð»Ð¸Ð·Ð°Ñ†Ð¸Ð¸ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð¾Ð² ÑÐ±Ð¾Ñ€ÐºÐ¸
 
 -------
-íà÷èíàÿ ñ 
+Ð½Ð°Ñ‡Ð¸Ð½Ð°Ñ Ñ 
 147 
 :selectSystem 
-íàïèñàíî çà ÷òî îòâå÷àþò ïàðàìåòðû èç config.bat
+Ð½Ð°Ð¿Ð¸ÑÐ°Ð½Ð¾ Ð·Ð° Ñ‡Ñ‚Ð¾ Ð¾Ñ‚Ð²ÐµÑ‡Ð°ÑŽÑ‚ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹ Ð¸Ð· config.bat
 
 -------
-äëÿ ïîñòðîéêè mpv íåîáõîäèìî ïîñòðîèòü ffmpeg ïðè ýòîì shared ñîáèðàåòñÿ ñ îøèáêîé, ñõîäó òîëüêî static
-äëÿ ïîñòðîéêè libmpv äîëæåí áûòü ïàðàìåòð buildffmpegChoice=4
+Ð´Ð»Ñ Ð¿Ð¾ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸ mpv Ð½ÐµÐ¾Ð±Ñ…Ð¾Ð´Ð¸Ð¼Ð¾ Ð¿Ð¾ÑÑ‚Ñ€Ð¾Ð¸Ñ‚ÑŒ ffmpeg Ð¿Ñ€Ð¸ ÑÑ‚Ð¾Ð¼ shared ÑÐ¾Ð±Ð¸Ñ€Ð°ÐµÑ‚ÑÑ Ñ Ð¾ÑˆÐ¸Ð±ÐºÐ¾Ð¹, ÑÑ…Ð¾Ð´Ñƒ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ static
+Ð´Ð»Ñ Ð¿Ð¾ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸ libmpv Ð´Ð¾Ð»Ð¶ÐµÐ½ Ð±Ñ‹Ñ‚ÑŒ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€ buildffmpegChoice=4
 
 -------
-ïàðàìåòðû ïåðåïàêîâûâàþòñÿ, è âûçûâàåòñÿ ñêðèïò build\media-suite_compile.sh c ïîëó÷åííûìè ïàðàìåòðàìè
+Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹ Ð¿ÐµÑ€ÐµÐ¿Ð°ÐºÐ¾Ð²Ñ‹Ð²Ð°ÑŽÑ‚ÑÑ, Ð¸ Ð²Ñ‹Ð·Ñ‹Ð²Ð°ÐµÑ‚ÑÑ ÑÐºÑ€Ð¸Ð¿Ñ‚ build\media-suite_compile.sh c Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð½Ñ‹Ð¼Ð¸ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð°Ð¼Ð¸
 1394
 /build/media-suite_compile.sh --cpuCount=%cpuCount% --build32=%build32% --build64=%build64% --deleteSource=%deleteSource% ^
 --mp4box=%mp4box% --vpx=%vpx2% --x264=%x2643% --x265=%x2652% --other265=%other265% --flac=%flac% --fdkaac=%fdkaac% ^
@@ -27,7 +27,7 @@ call config.bat
 --faac=%faac% --ffmbc=%ffmbc% --curl=%curl% --cyanrip=%cyanrip%'
 
 -------
-òóò ìîæíî óêàçàòü ôëàãè mpv
+Ñ‚ÑƒÑ‚ Ð¼Ð¾Ð¶Ð½Ð¾ ÑƒÐºÐ°Ð·Ð°Ñ‚ÑŒ Ñ„Ð»Ð°Ð³Ð¸ mpv
 95 
 :: overriden defaults
 
@@ -40,7 +40,7 @@ set mpv_options_basic="--lua=luajit"
 set mpv_options_full=dvdread dvdnav cdda egl-angle vapoursynth html-build ^
 pdf-build libmpv-shared 
 
-ôëàãè âçÿòû èç ôàéëà build\mpv_options.txt
+Ñ„Ð»Ð°Ð³Ð¸ Ð²Ð·ÑÑ‚Ñ‹ Ð¸Ð· Ñ„Ð°Ð¹Ð»Ð° build\mpv_options.txt
 
 # Built-in options, use --disable- to disable them
 #--enable-cplayer
@@ -75,41 +75,41 @@ pdf-build libmpv-shared
 --enable-libmpv-shared
 
 ----------------------------------
-ñêðèïò ñáîðêè build\media-suite_compile.sh
+ÑÐºÑ€Ð¸Ð¿Ñ‚ ÑÐ±Ð¾Ñ€ÐºÐ¸ build\media-suite_compile.sh
 
 -------
-âûçûâàåòñÿ ñêðèïò build\media-suite_helper.sh - â íåì îïðåäåëåíû âñïîìîãàòüåëüíûå ôóíêöèè äëÿ ñáîðêè
+Ð²Ñ‹Ð·Ñ‹Ð²Ð°ÐµÑ‚ÑÑ ÑÐºÑ€Ð¸Ð¿Ñ‚ build\media-suite_helper.sh - Ð² Ð½ÐµÐ¼ Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»ÐµÐ½Ñ‹ Ð²ÑÐ¿Ð¾Ð¼Ð¾Ð³Ð°Ñ‚ÑŒÐµÐ»ÑŒÐ½Ñ‹Ðµ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ð¸ Ð´Ð»Ñ ÑÐ±Ð¾Ñ€ÐºÐ¸
 61 
 source "$LOCALBUILDDIR"/media-suite_helper.sh
 
 -------
-çàãðóçêà mpv è ïîñëåäóþùàÿ îáðàáîòêà ôëàãîâ
+Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÐ° mpv Ð¸ Ð¿Ð¾ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð°Ñ Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐ° Ñ„Ð»Ð°Ð³Ð¾Ð²
 1708
 if do_vcs "https://github.com/mpv-player/mpv.git"; then
 
 ----------------------------------
-êîíå÷íûå ôàéëû ïîìåùàþòñÿ â local64
-â ÷àñòíîñòè â local64\bin-video íàõîäèòñÿ libopenh264.dll
+ÐºÐ¾Ð½ÐµÑ‡Ð½Ñ‹Ðµ Ñ„Ð°Ð¹Ð»Ñ‹ Ð¿Ð¾Ð¼ÐµÑ‰Ð°ÑŽÑ‚ÑÑ Ð² local64
+Ð² Ñ‡Ð°ÑÑ‚Ð½Ð¾ÑÑ‚Ð¸ Ð² local64\bin-video Ð½Ð°Ñ…Ð¾Ð´Ð¸Ñ‚ÑÑ libopenh264.dll
 
 
 ----------------------------------
-ãåíåðàöèÿ mpv.lib èç .def
+Ð³ÐµÐ½ÐµÑ€Ð°Ñ†Ð¸Ñ mpv.lib Ð¸Ð· .def
 
 -------
-â ôàéë build\mpv-git\libmpv\mpv.def äîïèñàòü âíà÷àëå EXPORTS
+Ð² Ñ„Ð°Ð¹Ð» build\mpv-git\libmpv\mpv.def Ð´Ð¾Ð¿Ð¸ÑÐ°Ñ‚ÑŒ Ð²Ð½Ð°Ñ‡Ð°Ð»Ðµ EXPORTS
 
 -------
 VS Tool (dumpbin, lib)
-íàõîäÿòñÿ ãäå-íèáóäü C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin
+Ð½Ð°Ñ…Ð¾Ð´ÑÑ‚ÑÑ Ð³Ð´Ðµ-Ð½Ð¸Ð±ÑƒÐ´ÑŒ C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin
 
 -------
-åñëè äîáàâëÿëèñü/óáèðàëèñü ìåòîäû â dll íî èçìåíåíèÿ íå áûëè îòîáðàæåíû â build\mpv-git\libmpv\mpv.def
-íóæíî çàïóñòèòü 
+ÐµÑÐ»Ð¸ Ð´Ð¾Ð±Ð°Ð²Ð»ÑÐ»Ð¸ÑÑŒ/ÑƒÐ±Ð¸Ñ€Ð°Ð»Ð¸ÑÑŒ Ð¼ÐµÑ‚Ð¾Ð´Ñ‹ Ð² dll Ð½Ð¾ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ Ð½Ðµ Ð±Ñ‹Ð»Ð¸ Ð¾Ñ‚Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ñ‹ Ð² build\mpv-git\libmpv\mpv.def
+Ð½ÑƒÐ¶Ð½Ð¾ Ð·Ð°Ð¿ÑƒÑÑ‚Ð¸Ñ‚ÑŒ 
 > dumpbin /exports C:\yourpath\yourlib.dll 
-è ïîñìîòðåòü êàêèå ìåòîäû åñòü â dll è äîïèñàòü/óáðàòü èõ èç mpv.def
+Ð¸ Ð¿Ð¾ÑÐ¼Ð¾Ñ‚Ñ€ÐµÑ‚ÑŒ ÐºÐ°ÐºÐ¸Ðµ Ð¼ÐµÑ‚Ð¾Ð´Ñ‹ ÐµÑÑ‚ÑŒ Ð² dll Ð¸ Ð´Ð¾Ð¿Ð¸ÑÐ°Ñ‚ÑŒ/ÑƒÐ±Ñ€Ð°Ñ‚ÑŒ Ð¸Ñ… Ð¸Ð· mpv.def
 
 -------
-äëÿ ãåíåðàöèè .lib çàïóñòèòü
+Ð´Ð»Ñ Ð³ÐµÐ½ÐµÑ€Ð°Ñ†Ð¸Ð¸ .lib Ð·Ð°Ð¿ÑƒÑÑ‚Ð¸Ñ‚ÑŒ
 > lib /MACHINE:X64 /def:C:\mypath\mylib.def /OUT:C:\mypath\mylib.lib
-èëè
+Ð¸Ð»Ð¸
 > lib /MACHINE:X86 /def:C:\mypath\mylib.def /OUT:C:\mypath\mylib.lib

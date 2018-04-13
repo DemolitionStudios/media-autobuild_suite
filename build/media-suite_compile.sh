@@ -1718,7 +1718,7 @@ if [[ $mpv != "n" ]] && pc_exists libavcodec libavformat libswscale libavfilter;
         if [[ $bits = "64bit" ]]; then
             mpv_ldflags+=("-Wl,--image-base,0x140000000,--high-entropy-va")
             if enabled_any libnpp cuda-sdk && [[ -n "$CUDA_PATH" ]]; then
-                mpv_cflags=("-I$(cygpath -sm "$CUDA_PATH")/include")
+                mpv_cflags=("-gdwarf, -I$(cygpath -sm "$CUDA_PATH")/include")
                 mpv_ldflags+=("-L$(cygpath -sm "$CUDA_PATH")/lib/x64")
             fi
         fi

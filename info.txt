@@ -96,17 +96,14 @@ if do_vcs "https://github.com/mpv-player/mpv.git"; then
 генерация mpv.lib из .def
 
 -------
-в файл build\mpv-git\libmpv\mpv.def дописать вначале EXPORTS
-
--------
 VS Tool (dumpbin, lib)
 находятся где-нибудь C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin
 
 -------
-если добавлялись/убирались методы в dll но изменения не были отображены в build\mpv-git\libmpv\mpv.def
+если добавлялись/убирались методы в dll но изменения не были отображены в build\mpv-git\build\mpv.def
 нужно запустить 
 > dumpbin /exports C:\yourpath\yourlib.dll 
-и посмотреть какие методы есть в dll и дописать/убрать их из mpv.def
+и посмотреть какие методы есть в dll и дописать/убрать их в mpv.def
 
 -------
 для генерации .lib запустить

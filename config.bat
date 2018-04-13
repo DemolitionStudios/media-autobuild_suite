@@ -26,7 +26,7 @@ set buildcyanrip=2
 set buildredshift=2
 
 set deleteS=1
-set stripF=1
+set stripF=2
 set packF=2
 set loggingF=1
 set updateSuiteF=1

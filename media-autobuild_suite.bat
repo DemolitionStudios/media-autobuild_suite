@@ -93,7 +93,7 @@ set mpv_options_builtin=#cplayer #manpage-build #lua #javascript #libass ^
 #shaderc #crossc #d3d11 #jpeg
 
 :: overriden defaults
-set mpv_options_basic=%new_mpv_options_basic%
+set mpv_options_basic=--disable-debug-build "--lua=luajit"
 
 :: all supported options
 set mpv_options_full=dvdread dvdnav cdda egl-angle vapoursynth html-build ^

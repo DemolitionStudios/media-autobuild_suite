@@ -1,0 +1,34 @@
+# Lines starting with this character are ignored
+# Built-in options, use --disable- to disable them
+
+--enable-debug-build
+
+#--enable-cplayer
+#--enable-manpage-build
+#--enable-lua
+#--enable-javascript
+#--enable-libass
+#--enable-encoding
+#--enable-libbluray
+#--enable-uchardet
+#--enable-rubberband
+#--enable-lcms2
+#--enable-libarchive
+#--enable-libavdevice
+#--enable-shaderc
+#--enable-crossc
+#--enable-d3d11
+#--enable-jpeg
+
+# Common options or overriden defaults
+--lua=luajit
+
+# Full
+#--enable-dvdread
+#--enable-dvdnav
+#--enable-cdda
+--enable-egl-angle
+#--enable-vapoursynth
+#--enable-html-build
+#--enable-pdf-build
+--enable-libmpv-shared

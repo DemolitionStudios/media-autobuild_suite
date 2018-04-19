@@ -1,2 +1,2 @@
-set new_mpv_options_basic=--disable-debug
+copy mpv_options_release.txt build\mpv_options.txt
 media-autobuild_suite.bat

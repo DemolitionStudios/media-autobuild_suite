@@ -854,6 +854,7 @@ do_getMpvConfig() {
     else
         IFS=$'\n' read -d '' -r -a MPV_OPTS < \
             <(do_readoptionsfile "$LOCALBUILDDIR/mpv_options.txt")
+	   MPV_OPTS=($(do_readbatoptions "mpv_options_basic"))
     fi
     do_removeOption MPV_OPTS \
         "--(en|dis)able-(vapoursynth-lazy|libguess|static-build|enable-gpl3|egl-angle-lib)"

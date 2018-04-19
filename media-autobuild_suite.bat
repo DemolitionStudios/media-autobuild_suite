@@ -69,7 +69,7 @@ set mingwpackages=cmake dlfcn libpng gcc nasm pcre tools-git yasm ninja pkg-conf
 
 :: built-ins
 set ffmpeg_options_builtin=#amf #bzlib #cuda #cuvid #d3d11va #dxva2 ^
-#iconv #lzma #nvenc #schannel #zlib #sdl2
+#iconv #lzma #nvenc #schannel #zlib #sdl2 --disable-debug
 
 :: common external libs
 set ffmpeg_options_basic=gmp libmp3lame libopus libvorbis libvpx libx264 libx265
@@ -93,7 +93,7 @@ set mpv_options_builtin=#cplayer #manpage-build #lua #javascript #libass ^
 #shaderc #crossc #d3d11 #jpeg
 
 :: overriden defaults
-set mpv_options_basic="--lua=luajit"
+set mpv_options_basic=%new_mpv_options_basic%
 
 :: all supported options
 set mpv_options_full=dvdread dvdnav cdda egl-angle vapoursynth html-build ^
@@ -1396,7 +1396,7 @@ MSYS2_PATH_TYPE=inherit MSYSTEM=%MSYSTEM% /usr/bin/bash --login ^
 --mediainfo=%mediainfo% --sox=%sox% --ffmpeg=%ffmpeg% --ffmpegUpdate=%ffmpegUpdate% --ffmpegChoice=%ffmpegChoice% ^
 --mplayer=%mplayer% --mpv=%mpv% --license=%license2%  --stripping=%stripFile% --packing=%packFile% ^
 --rtmpdump=%rtmpdump% --logging=%logging% --bmx=%bmx% --standalone=%standalone% ^
---faac=%faac% --ffmbc=%ffmbc% --curl=%curl% --cyanrip=%cyanrip%'
+--faac=%faac% --ffmbc=%ffmbc% --curl=%curl% --cyanrip=%cyanrip% --MPV_GIT_REPO=%MPV_GIT_REPO%'
 
 endlocal
 goto :EOF

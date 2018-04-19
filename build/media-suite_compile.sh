@@ -52,10 +52,11 @@ while true; do
 --curl=* ) curl="${1#*=}"; shift ;;
 --cyanrip=* ) cyanrip="${1#*=}"; shift ;;
 --redshift=* ) redshift="${1#*=}"; shift ;;
+--MPV_GIT_REPO=* ) MPV_GIT_REPO="${1#*=}"; shift ;;
     -- ) shift; break ;;
     -* ) echo "Error, unknown option: '$1'."; exit 1 ;;
     * ) break ;;
-  esac
+  esacf
 done
 
 source "$LOCALBUILDDIR"/media-suite_helper.sh
@@ -1704,7 +1705,7 @@ if [[ $mpv != "n" ]] && pc_exists libavcodec libavformat libswscale libavfilter;
 
     _check=(bin-video/mpv.{exe,com})
     _deps=(lib{ass,avcodec,vapoursynth}.a "$MINGW_PREFIX"/lib/libuchardet.a)
-    if do_vcs "https://github.com/mpv-player/mpv.git"; then
+    if do_vcs $MPV_GIT_REPO; then
         hide_conflicting_libs
         create_ab_pkgconfig
 
@@ -1718,7 +1719,7 @@ if [[ $mpv != "n" ]] && pc_exists libavcodec libavformat libswscale libavfilter;
         if [[ $bits = "64bit" ]]; then
             mpv_ldflags+=("-Wl,--image-base,0x140000000,--high-entropy-va")
             if enabled_any libnpp cuda-sdk && [[ -n "$CUDA_PATH" ]]; then
-                mpv_cflags=("-gdwarf, -I$(cygpath -sm "$CUDA_PATH")/include")
+                mpv_cflags=("-I$(cygpath -sm "$CUDA_PATH")/include")
                 mpv_ldflags+=("-L$(cygpath -sm "$CUDA_PATH")/lib/x64")
             fi
         fi
@@ -1736,7 +1737,7 @@ if [[ $mpv != "n" ]] && pc_exists libavcodec libavformat libswscale libavfilter;
               git merge --abort && mpv_disable mruby; }
 
         files_exist libavutil.a && MPV_OPTS+=(--enable-static-build)
-        CFLAGS+=" ${mpv_cflags[*]}" LDFLAGS+=" ${mpv_ldflags[*]}" \
+        CFLAGS+=" -ggdb ${mpv_cflags[*]}" LDFLAGS+=" ${mpv_ldflags[*]}" \
             RST2MAN="${MINGW_PREFIX}/bin/rst2man3" \
             RST2HTML="${MINGW_PREFIX}/bin/rst2html3" \
             RST2PDF="${MINGW_PREFIX}/bin/rst2pdf2" \

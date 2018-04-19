@@ -1737,6 +1737,7 @@ if [[ $mpv != "n" ]] && pc_exists libavcodec libavformat libswscale libavfilter;
               git merge --abort && mpv_disable mruby; }
 
         files_exist libavutil.a && MPV_OPTS+=(--enable-static-build)
+	  CFLAGS+=" -gdwarf"
         CFLAGS+=" ${mpv_cflags[*]}" LDFLAGS+=" ${mpv_ldflags[*]}" \
             RST2MAN="${MINGW_PREFIX}/bin/rst2man3" \
             RST2HTML="${MINGW_PREFIX}/bin/rst2html3" \

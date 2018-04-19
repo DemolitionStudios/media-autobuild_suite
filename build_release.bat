@@ -1,2 +1,2 @@
-set new_mpv_options_basic="--enable-debug --enable-debug-build"
+set new_mpv_options_basic=--disable-debug
 media-autobuild_suite.bat

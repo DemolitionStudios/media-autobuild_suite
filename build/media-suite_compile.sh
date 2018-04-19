@@ -56,7 +56,7 @@ while true; do
     -- ) shift; break ;;
     -* ) echo "Error, unknown option: '$1'."; exit 1 ;;
     * ) break ;;
-  esacf
+  esac
 done
 
 source "$LOCALBUILDDIR"/media-suite_helper.sh
@@ -1737,7 +1737,7 @@ if [[ $mpv != "n" ]] && pc_exists libavcodec libavformat libswscale libavfilter;
               git merge --abort && mpv_disable mruby; }
 
         files_exist libavutil.a && MPV_OPTS+=(--enable-static-build)
-        CFLAGS+=" -ggdb ${mpv_cflags[*]}" LDFLAGS+=" ${mpv_ldflags[*]}" \
+        CFLAGS+=" ${mpv_cflags[*]}" LDFLAGS+=" ${mpv_ldflags[*]}" \
             RST2MAN="${MINGW_PREFIX}/bin/rst2man3" \
             RST2HTML="${MINGW_PREFIX}/bin/rst2html3" \
             RST2PDF="${MINGW_PREFIX}/bin/rst2pdf2" \

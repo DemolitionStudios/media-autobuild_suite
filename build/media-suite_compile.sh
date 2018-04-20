@@ -1434,8 +1434,8 @@ if [[ $ffmpeg != "no" ]]; then
                 --bindir="$LOCALDESTDIR/bin-video"
                 --shlibdir="$LOCALDESTDIR/bin-video")
         fi
-        ! disabled_any debug "debug=dwarf" &&
-            ffmpeg_cflags="$(echo $CFLAGS | sed -r 's/ -O0 //g')"
+        ! disabled_any debug "debug=gdb" &&
+            ffmpeg_cflags="$(echo $CFLAGS | sed -r 's/ -O0 //gdwarf')"
 
         if [[ ${#FFMPEG_OPTS[@]} -gt 25 ]]; then
             # remove redundant -L and -l flags from extralibs
@@ -1479,7 +1479,7 @@ if [[ $ffmpeg != "no" ]]; then
             # cosmetics
             sed -ri "s/ ?--($sedflags)=(\S+[^\" ]|'[^']+')//g" config.h
             do_make && do_makeinstall
-            ! disabled_any debug "debug=dwarf" &&
+            ! disabled_any debug "debug=gdb" &&
                 create_debug_link "$LOCALDESTDIR"/bin-video/ff{mpeg,probe,play}.exe
             cd_safe ..
         fi

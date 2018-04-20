@@ -1434,8 +1434,8 @@ if [[ $ffmpeg != "no" ]]; then
                 --bindir="$LOCALDESTDIR/bin-video"
                 --shlibdir="$LOCALDESTDIR/bin-video")
         fi
-        ! disabled_any debug "debug=gdb" &&
-            ffmpeg_cflags="$(echo $CFLAGS | sed -r 's/ (-O[1-3]|-mtune=\S+)//g')"
+        ! disabled_any debug "debug=dwarf" &&
+            ffmpeg_cflags="$(echo $CFLAGS | sed -r 's/ -O0 //g')"
 
         if [[ ${#FFMPEG_OPTS[@]} -gt 25 ]]; then
             # remove redundant -L and -l flags from extralibs
@@ -1479,7 +1479,7 @@ if [[ $ffmpeg != "no" ]]; then
             # cosmetics
             sed -ri "s/ ?--($sedflags)=(\S+[^\" ]|'[^']+')//g" config.h
             do_make && do_makeinstall
-            ! disabled_any debug "debug=gdb" &&
+            ! disabled_any debug "debug=dwarf" &&
                 create_debug_link "$LOCALDESTDIR"/bin-video/ff{mpeg,probe,play}.exe
             cd_safe ..
         fi
@@ -1737,7 +1737,7 @@ if [[ $mpv != "n" ]] && pc_exists libavcodec libavformat libswscale libavfilter;
               git merge --abort && mpv_disable mruby; }
 
         files_exist libavutil.a && MPV_OPTS+=(--enable-static-build)
-	         CFLAGS+=" ${mpv_cflags[*]}" LDFLAGS+=" ${mpv_ldflags[*]}" \
+	   CFLAGS+=" ${mpv_cflags[*]}" LDFLAGS+=" ${mpv_ldflags[*]}" \
             RST2MAN="${MINGW_PREFIX}/bin/rst2man3" \
             RST2HTML="${MINGW_PREFIX}/bin/rst2html3" \
             RST2PDF="${MINGW_PREFIX}/bin/rst2pdf2" \
@@ -1746,6 +1746,7 @@ if [[ $mpv != "n" ]] && pc_exists libavcodec libavformat libswscale libavfilter;
             "--prefix=$LOCALDESTDIR" "--bindir=$LOCALDESTDIR/bin-video" \
             --disable-vapoursynth-lazy "${MPV_OPTS[@]}"
 
+		echo "CFLAGS: $CFLAGS"
         log build /usr/bin/python waf -j "${cpuCount:-1}"
         log install /usr/bin/python waf -j1 install ||
             log install /usr/bin/python waf -j1 install

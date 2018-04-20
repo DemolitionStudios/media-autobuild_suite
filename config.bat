@@ -1,4 +1,4 @@
-set cpuCores=2
+set cpuCores=4
 
 set buildEnv=3
 set ffmpegLicense=1
@@ -30,4 +30,4 @@ set packF=2
 set loggingF=1
 set updateSuiteF=1
 
-set MPV_GIT_REPO=https://github.com/DemolitionStudios/mpv.git
+set MPV_GIT_REPO=https://github.com/mpv-player/mpv.git

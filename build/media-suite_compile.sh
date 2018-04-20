@@ -1435,7 +1435,7 @@ if [[ $ffmpeg != "no" ]]; then
                 --shlibdir="$LOCALDESTDIR/bin-video")
         fi
         ! disabled_any debug "debug=gdb" &&
-            ffmpeg_cflags="$(echo $CFLAGS | sed -r 's/ -O0 //gdwarf')"
+            ffmpeg_cflags="$(echo $CFLAGS | sed -r 's/ (-O[1-3]|-mtune=\S+)//g')"
 
         if [[ ${#FFMPEG_OPTS[@]} -gt 25 ]]; then
             # remove redundant -L and -l flags from extralibs

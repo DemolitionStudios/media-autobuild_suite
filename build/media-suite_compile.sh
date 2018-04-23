@@ -53,11 +53,14 @@ while true; do
 --cyanrip=* ) cyanrip="${1#*=}"; shift ;;
 --redshift=* ) redshift="${1#*=}"; shift ;;
 --MPV_GIT_REPO=* ) MPV_GIT_REPO="${1#*=}"; shift ;;
+--MPV_ADD_CFLAGS=* ) MPV_ADD_CFLAGS="${1#*=}"; shift ;;
     -- ) shift; break ;;
-    -* ) echo "Error, unknown option: '$1'."; exit 1 ;;
+    -* ) echo "Error, unknown option: '$1'."; break ;;
     * ) break ;;
   esac
 done
+
+echo "MPV_ADD_CFLAGS = $MPV_ADD_CFLAGS"
 
 source "$LOCALBUILDDIR"/media-suite_helper.sh
 
@@ -1715,11 +1718,12 @@ if [[ $mpv != "n" ]] && pc_exists libavcodec libavformat libswscale libavfilter;
             do_uninstall bin-video/mpv{.exe,-1.dll}.debug "${_check[@]}"
         fi
 
+	   mpv_cflags=("$MPV_ADD_CFLAGS")
         mpv_ldflags=("-L$LOCALDESTDIR/lib" "-L$MINGW_PREFIX/lib")
         if [[ $bits = "64bit" ]]; then
             mpv_ldflags+=("-Wl,--image-base,0x140000000,--high-entropy-va")
             if enabled_any libnpp cuda-sdk && [[ -n "$CUDA_PATH" ]]; then
-                mpv_cflags=("-I$(cygpath -sm "$CUDA_PATH")/include")
+                mpv_cflags+=("-I$(cygpath -sm "$CUDA_PATH")/include")
                 mpv_ldflags+=("-L$(cygpath -sm "$CUDA_PATH")/lib/x64")
             fi
         fi
@@ -1736,6 +1740,8 @@ if [[ $mpv != "n" ]] && pc_exists libavcodec libavformat libswscale libavfilter;
             { git merge --no-edit --no-gpg-sign origin/mruby ||
               git merge --abort && mpv_disable mruby; }
 
+	   echo "mpv_cflags: ${mpv_cflags[*]}"
+		
         files_exist libavutil.a && MPV_OPTS+=(--enable-static-build)
 	   CFLAGS+=" ${mpv_cflags[*]}" LDFLAGS+=" ${mpv_ldflags[*]}" \
             RST2MAN="${MINGW_PREFIX}/bin/rst2man3" \
@@ -1746,7 +1752,7 @@ if [[ $mpv != "n" ]] && pc_exists libavcodec libavformat libswscale libavfilter;
             "--prefix=$LOCALDESTDIR" "--bindir=$LOCALDESTDIR/bin-video" \
             --disable-vapoursynth-lazy "${MPV_OPTS[@]}"
 
-		echo "CFLAGS: $CFLAGS"
+	   echo "CFLAGS: $CFLAGS"
         log build /usr/bin/python waf -j "${cpuCount:-1}"
         log install /usr/bin/python waf -j1 install ||
             log install /usr/bin/python waf -j1 install

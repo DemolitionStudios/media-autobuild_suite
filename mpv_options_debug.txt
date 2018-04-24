@@ -1,6 +1,12 @@
 # Lines starting with this character are ignored
 # Built-in options, use --disable- to disable them
 
+# FIXME: Lev: I wanted to explicitly set debug build to true, but it says there is no such option --enable-debug-build 
+# FIXME: although --disable-debug-build works
+#--enable-debug-build
+# Disable optimization, otherwise -O2 flag being added by mpv waf build scripts after our -O0, which kills it 
+--disable-optimize
+
 #--enable-cplayer
 #--enable-manpage-build
 #--enable-lua

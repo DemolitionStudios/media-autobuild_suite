@@ -1761,7 +1761,10 @@ if [[ $mpv != "n" ]] && pc_exists libavcodec libavformat libswscale libavfilter;
         echo "CFLAGS: $CFLAGS"
         echo "LDFLAGS: $LDFLAGS"
 
-        	# Just run new msys2 console for manual control
+        # Just run new msys2 console for manual control
+        echo "Use the following commands to build & install:"
+        echo "cd build/mpv-git"
+        echo "/usr/bin/python waf -j 4 && /usr/bin/python waf -j1 install"
         /D/media-autobuild_suite/msys64/mingw64.exe
         read -n1 -r -p "Press space to continue..." key
 

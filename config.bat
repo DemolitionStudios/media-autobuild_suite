@@ -31,3 +31,4 @@ set loggingF=1
 set updateSuiteF=1
 
 set MPV_GIT_REPO=https://github.com/DemolitionStudios/mpv.git
+set MPV_GIT_BRANCH=render_dx11

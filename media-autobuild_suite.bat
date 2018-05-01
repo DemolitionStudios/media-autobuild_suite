@@ -1397,7 +1397,7 @@ MSYS2_PATH_TYPE=inherit MSYSTEM=%MSYSTEM% /usr/bin/bash --login ^
 --mplayer=%mplayer% --mpv=%mpv% --license=%license2%  --stripping=%stripFile% --packing=%packFile% ^
 --rtmpdump=%rtmpdump% --logging=%logging% --bmx=%bmx% --standalone=%standalone% ^
 --faac=%faac% --ffmbc=%ffmbc% --curl=%curl% --cyanrip=%cyanrip% ^
---MPV_GIT_REPO=%MPV_GIT_REPO% --MPV_ADD_CFLAGS=%MPV_ADD_CFLAGS%'
+--MPV_GIT_REPO=%MPV_GIT_REPO% --MPV_GIT_BRANCH=%MPV_GIT_BRANCH% --MPV_ADD_CFLAGS=%MPV_ADD_CFLAGS%'
 
 endlocal
 goto :EOF

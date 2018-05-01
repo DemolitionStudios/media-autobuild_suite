@@ -53,6 +53,7 @@ while true; do
 --cyanrip=* ) cyanrip="${1#*=}"; shift ;;
 --redshift=* ) redshift="${1#*=}"; shift ;;
 --MPV_GIT_REPO=* ) MPV_GIT_REPO="${1#*=}"; shift ;;
+--MPV_GIT_BRANCH=* ) MPV_GIT_BRANCH="${1#*=}"; shift ;;
 --MPV_ADD_CFLAGS=* ) MPV_ADD_CFLAGS="${1#*=}"; shift ;;
     -- ) shift; break ;;
     -* ) echo "Error, unknown option: '$1'."; break ;;
@@ -1708,7 +1709,11 @@ if [[ $mpv != "n" ]] && pc_exists libavcodec libavformat libswscale libavfilter;
 
     _check=(bin-video/mpv.{exe,com})
     _deps=(lib{ass,avcodec,vapoursynth}.a "$MINGW_PREFIX"/lib/libuchardet.a)
-    if do_vcs $MPV_GIT_REPO; then
+    echo "mpv repo: $MPV_GIT_REPO, branch: $MPV_GIT_BRANCH"
+    if do_vcs "$MPV_GIT_REPO#$MPV_GIT_BRANCH"; then
+	# FIXME: branch setting above doesn't work for some reason, so we force it here
+	git checkout $MPV_GIT_BRANCH	
+
         hide_conflicting_libs
         create_ab_pkgconfig
 
@@ -1718,7 +1723,7 @@ if [[ $mpv != "n" ]] && pc_exists libavcodec libavformat libswscale libavfilter;
             do_uninstall bin-video/mpv{.exe,-1.dll}.debug "${_check[@]}"
         fi
 
-	   mpv_cflags=("$MPV_ADD_CFLAGS")
+        mpv_cflags=("$MPV_ADD_CFLAGS")
         mpv_ldflags=("-L$LOCALDESTDIR/lib" "-L$MINGW_PREFIX/lib")
         if [[ $bits = "64bit" ]]; then
             mpv_ldflags+=("-Wl,--image-base,0x140000000,--high-entropy-va")
@@ -1740,7 +1745,8 @@ if [[ $mpv != "n" ]] && pc_exists libavcodec libavformat libswscale libavfilter;
             { git merge --no-edit --no-gpg-sign origin/mruby ||
               git merge --abort && mpv_disable mruby; }
 
-	   echo "mpv_cflags: ${mpv_cflags[*]}"
+        echo "mpv_cflags: ${mpv_cflags[*]}"
+        echo "mpv_ldflags: ${mpv_ldflags[*]}"
 		
         files_exist libavutil.a && MPV_OPTS+=(--enable-static-build)
 	   CFLAGS+=" ${mpv_cflags[*]}" LDFLAGS+=" ${mpv_ldflags[*]}" \
@@ -1752,7 +1758,13 @@ if [[ $mpv != "n" ]] && pc_exists libavcodec libavformat libswscale libavfilter;
             "--prefix=$LOCALDESTDIR" "--bindir=$LOCALDESTDIR/bin-video" \
             --disable-vapoursynth-lazy "${MPV_OPTS[@]}"
 
-	   echo "CFLAGS: $CFLAGS"
+        echo "CFLAGS: $CFLAGS"
+        echo "LDFLAGS: $LDFLAGS"
+
+        	# Just run new msys2 console for manual control
+        /D/media-autobuild_suite/msys64/mingw64.exe
+        read -n1 -r -p "Press space to continue..." key
+
         log build /usr/bin/python waf -j "${cpuCount:-1}"
         log install /usr/bin/python waf -j1 install ||
             log install /usr/bin/python waf -j1 install

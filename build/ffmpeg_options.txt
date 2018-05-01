@@ -1,7 +1,8 @@
 # Lines starting with this character are ignored
 # Built-in options, use --disable- to disable them
 
---disable-debug-build
+#wtf
+#--disable-debug-build
 
 #--enable-amf
 #--enable-bzlib

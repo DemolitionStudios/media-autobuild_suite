@@ -2,7 +2,7 @@
 # Built-in options, use --disable- to disable them
 
 #wtf
-#--disable-debug-build
+--disable-debug
 
 #--enable-amf
 #--enable-bzlib
